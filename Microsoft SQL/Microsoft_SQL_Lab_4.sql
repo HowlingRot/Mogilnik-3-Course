@@ -41,7 +41,7 @@ WHERE v.Comments <> 'согласен' AND DATEDIFF(month, p.Data_registration, 
 --6.Вывести список трёхкомнатных квартир в Витебске, расположенных на втором – четвертом этажах, у которых площадь кухни не менее 10 метров и цена которых не превышает 70000$. 
 SELECT *
 FROM PROPERTY 
-WHERE Rooms = 3 AND City = 'Витебск' AND Floor >1 AND Floor <5 AND Selling_price <= 70000;
+WHERE Rooms = 3 AND City = 'Витебск' AND Floor >1 AND Floor <5 AND Selling_price <= 70000 AND The_area LIKE '______[1-9]_';
 
 --7.Вывести список сотрудников (Staff_no, Fname), продавших более одного объекта недвижимости.
 SELECT STAFF.Staff_no,  STAFF.FName
