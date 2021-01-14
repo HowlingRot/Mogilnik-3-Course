@@ -112,6 +112,7 @@ INSERT INTO orders VALUES (3,2,'P',4000,5);
 INSERT INTO orders VALUES (4,3,'F',2000,1);
 INSERT INTO orders VALUES (5,3,'C',1000,1);
 INSERT INTO orders VALUES (6,1,'C',500,3);
+INSERT INTO orders VALUES (7,1,'P',500,3);
 
 --payments_orders
 INSERT INTO payments_orders VALUES(1,1,3000,NULL,FALSE);
@@ -120,7 +121,7 @@ INSERT INTO payments_orders VALUES(3,3,1000,1,TRUE);
 INSERT INTO payments_orders VALUES(4,4,1000,1,TRUE);
 INSERT INTO payments_orders VALUES(5,5,900,1,TRUE);
 INSERT INTO payments_orders VALUES(6,5,200,1,TRUE);
-
+INSERT INTO payments_orders VALUES(7,7,500,NULL,TRUE);
 
 --delivery
 INSERT INTO delivery VALUES(1,'Ваня','Ленивый',150);
@@ -164,8 +165,10 @@ INSERT INTO basket VALUES(4,4,1,1,1000,3,5);
 INSERT INTO basket VALUES(5,5,1,1,1000,3,5);
 INSERT INTO basket VALUES(6,6,1,1,1000,3,5);
 INSERT INTO basket VALUES(7,NULL,1,4,1000,3,15);
+INSERT INTO basket VALUES(8,NULL,1,4,1000,3,20);
 
 
+--Запросы
 --1. Вывести количество товаров для каждой категории.
 SELECT products.category_id, COUNT(*)  
 FROM products
@@ -230,13 +233,14 @@ SELECT products.*
 FROM products 
 RIGHT JOIN basket ON basket.product_id = products.id and basket.order_id IS NULL
 GROUP BY products.id
-HAVING SUM(basket.quantity)<SUM(products.quantity);
+HAVING SUM(basket.quantity)>products.quantity;
 
 --9. Вывести список пользователей, которые "бросили" свои корзины (не оформили заказ) за последние 30 дней.
 SELECT users.id, users.login
 FROM users JOIN customers ON users.id = customers.user_id
 JOIN basket ON customers.id = basket.customer_id
 WHERE basket.order_id IS NULL AND basket.create_at >= (SELECT NOW()-INTERVAL '30' DAY)
+GROUP BY users.id,users.login
 ORDER BY users.id;
 
 --10. Добавить скидку 10% на все товары, которые покупались (статус заказов "P" или "F") не более 10 раз.
@@ -268,7 +272,7 @@ WHERE orders.user_id IN (
 AND  orders.status = 'N';
 
 --13. Вывести самую популярную доставку и самый популярный способ оплаты (результат из 2 записей)
-SELECT best_delivery.*, best_payment.*
+SELECT best_delivery.*, best_payment.name as best_payment
 FROM(
     SELECT delivery.*, COUNT(delivery_orders.*) AS orders_num
     FROM delivery

@@ -4,10 +4,14 @@
 
 --I.Создаём таблицы
 
+
+
 CREATE TABLE roles(
 id bigint PRIMARY KEY NOT NULL,
 position varchar(20) NOT NULL
 );
+
+
 
 CREATE TABLE users(
 id bigint PRIMARY KEY NOT NULL,
@@ -17,26 +21,31 @@ email varchar(255) NULL,
 role_id bigint REFERENCES roles(id) NOT NULL
 );
 
+
+
 CREATE TABLE profiles(
 user_id bigint REFERENCES users(id) NOT NULL,
 name varchar(30) NOT NULL,
-preview varchar(255) NOT NULL,
+foto varchar(255) NOT NULL,
 sex varchar(1) NOT NULL,
-topic varchar(30)[] NOT NULL,
 birth_day date NOT NULL,
 dossier text NULL,
-hobby varchar(30)[] NOT NULL,
-professional_capabillities varchar(30)[] NOT NULL,
+hobby varchar(30)[] NULL,
+profession varchar(30) NOT NULL,
 PRIMARY KEY(user_id)
 );
+
+
 
 CREATE TABLE advertisements(
 id bigint PRIMARY KEY NOT NULL,
 preview varchar(255) NOT NULL,
 atext text NOT NULL,
 creator_id bigint REFERENCES users(id) NOT NULL,
-tags varchar(30)[] NOT NULL
+tags varchar(30)[] NULL
 );
+
+
 
 CREATE TABLE messages(
 id bigint PRIMARY KEY NOT NULL,
@@ -45,6 +54,8 @@ sender_id bigint REFERENCES users(id) NOT NULL,
 receiver_id bigint REFERENCES users(id) NOT NULL,
 create_at timestamp DEFAULT NOW()
 );
+
+
 
 --II.Заполняем таблицы
 
@@ -61,11 +72,11 @@ INSERT INTO users VALUES (4,'MENEGER1', '0004',NULL, 2);
 INSERT INTO users VALUES (5,'ADMIN1', '0005',NULL, 3);
 
 --profiles
-INSERT INTO profiles  VALUES (1,'Иван','Foto1','M','{topic_1, topic_2}','17.08.2001','dossier_1','{anime,dogs}','{designer}');
-INSERT INTO profiles  VALUES (2,'Ян','Foto2','M','{topic_3, topic_5}','11.02.2000','dossier_2','{beer,dogs}','{designer}');
-INSERT INTO profiles  VALUES (3,'Наташа','Foto3','Ж','{topic_4}','07.03.2005','dossier_3','{walk,sleep}','{artist}');
-INSERT INTO profiles  VALUES (4,'Кристина','Foto4','Ж','{topic_2, topic_2}','05.12.2001','dossier_4','{anime,walk}','{programmer}');
-INSERT INTO profiles  VALUES (5,'Дима','Foto5','M','{topic_4, topic_2}','25.04.2000','dossier_5','{anime,beer}','{programmer}');
+INSERT INTO profiles  VALUES (1,'Иван','Foto1','M','17.08.2001','dossier_1','{anime,dogs}','designer');
+INSERT INTO profiles  VALUES (2,'Ян','Foto2','M','11.02.2000','dossier_2','{beer,dogs}','programmer');
+INSERT INTO profiles  VALUES (3,'Наташа','Foto3','Ж','07.03.2005','dossier_3','{walk,sleep}','screenwriter');
+INSERT INTO profiles  VALUES (4,'Кристина','Foto4','Ж','05.12.2001','dossier_4','{anime,walk}','designer');
+INSERT INTO profiles  VALUES (5,'Дима','Foto5','M','25.04.2000','dossier_5','{anime,beer}','editor');
 
 --advertisements
 INSERT INTO advertisements VALUES (1,'Foto1','text1',1,'{tag1}');
