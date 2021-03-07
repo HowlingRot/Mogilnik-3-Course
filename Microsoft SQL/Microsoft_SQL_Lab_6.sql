@@ -20,7 +20,7 @@ HAVING count(FName)>1;
 
 --3.Вывести количество объектов недвижимости, проданных каждым отделением в текущем году.
 
-SELECT Branch_no, count(Branch_no) as 'Кол-во'
+SELECT Branch_no, count(Branch_no) as 'Кол-во проданной недвижимости'
 FROM CONTRACT join PROPERTY on CONTRACT.Property_no = PROPERTY.Property_no
 WHERE DATEDIFF(year, CONTRACT.Date_Contract, GETDATE()) = 0
 GROUP BY PROPERTY.Branch_no
@@ -39,22 +39,23 @@ GROUP BY PROPERTY.City
 
 --6.Найти сотрудника(Staff_no, Fname), продавшего максимальное количество объектов недвижимости в течение последних трех месяцев.
 
-SELECT TOP 1 STAFF.Staff_no,  STAFF.FName, count(CONTRACT.Sale_no) as num
+SELECT TOP 1 STAFF.Staff_no,  STAFF.FName, count(CONTRACT.Sale_no) as 'Кол-во проданной недвижимости'
 FROM STAFF join PROPERTY ON STAFF.Staff_no = PROPERTY.Staff_no join CONTRACT on CONTRACT.Property_no = PROPERTY.Property_no
 WHERE DATEDIFF(month, CONTRACT.Date_Contract, GETDATE()) < 3
 GROUP BY STAFF.Staff_no,  STAFF.FName
-ORDER BY num DESC
+ORDER BY 'Кол-во проданной недвижимости' DESC
 
 --7.Вывести адрес квартиры, которая была осмотрена покупателями максимальное число раз и не была продана.
 
-SELECT TOP 1 PROPERTY.City,PROPERTY.Street,PROPERTY.House,PROPERTY.Flat, count(VIEWING.Property_no) as num
+SELECT TOP 1 PROPERTY.City,PROPERTY.Street,PROPERTY.House,PROPERTY.Flat, count(VIEWING.Property_no) as 'Кол-во осмотров недвижимости'
 FROM PROPERTY JOIN VIEWING ON PROPERTY.Property_no = VIEWING.Property_no left join CONTRACT on CONTRACT.Property_no = PROPERTY.Property_no
 WHERE CONTRACT.Sale_no is null
 GROUP BY PROPERTY.City,PROPERTY.Street,PROPERTY.House,PROPERTY.Flat, VIEWING.Property_no
-ORDER BY num DESC
+ORDER BY 'Кол-во осмотров недвижимости' DESC
 
 --8.Найти номер отделения, у которого средняя заработная плата является максимальной из средних заработных плат отделений компании. 
-SELECT TOP 1 BRANCH.Branch_no, avg(STAFF.salary) as num
+
+SELECT TOP 1 BRANCH.Branch_no, avg(STAFF.salary) as 'Средняя зарплата'
 FROM BRANCH join STAFF ON BRANCH.Branch_no = STAFF.Branch_no
 GROUP BY BRANCH.Branch_no
-ORDER BY num DESC
+ORDER BY 'Средняя зарплата' DESC
