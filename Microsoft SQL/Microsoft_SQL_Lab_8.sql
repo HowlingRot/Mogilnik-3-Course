@@ -7,14 +7,14 @@ USE DreamHome;
 --1.Снизить на 10% заработную плату сотрудников, которые не продали ни одной квартиры, и заработная плата которых превышает среднюю заработную плату в своем отделении.
 
 UPDATE STAFF
-SET Salary = Salary*0.1
+SET Salary = Salary - Salary*0.1
 FROM STAFF as f JOIN PROPERTY ON f.Staff_no = PROPERTY.Staff_no LEFT JOIN CONTRACT on CONTRACT.Property_no = PROPERTY.Property_no
 WHERE CONTRACT.Property_no IS NULL AND f.Salary > (SELECT avg(z.Salary) FROM STAFF as z GROUP BY z.Branch_no HAVING f.Branch_no = z.Branch_no) 
 
 --2.Уменьшить на 10% цены самых дорогих в своих отделениях квартир.
 
 UPDATE PROPERTY
-SET Selling_Price = Selling_Price*0.1
+SET Selling_Price = Selling_Price - Selling_Price*0.1
 WHERE PROPERTY.Selling_Price = (SELECT max(z.Selling_Price)
 	FROM PROPERTY as z
 	WHERE PROPERTY.Branch_no = z.Branch_no
