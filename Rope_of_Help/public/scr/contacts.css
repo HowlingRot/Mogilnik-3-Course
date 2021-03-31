@@ -1,0 +1,84 @@
+@import "./fonts/fonts.css";
+@import "./colors/colors.css";
+
+*,*:before,*:after{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+
+}
+
+.contacts{
+    margin-top: 50px;
+    display: flex;
+    flex-direction:column;
+    height: 100vh;
+}
+
+.contacts__void{
+    height: 20%;
+}
+
+.contacts__big-title {
+    margin-bottom: 20px;
+    font-size: 30px;
+    display: block;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align:left;
+    padding: 0px 0px 0px 30px;
+}
+
+.contacts__list{
+    margin: 0px 0px 0px 0px;
+    list-style: none;
+}
+
+.menu__link_contacts{
+    margin-bottom: 10px;
+    height: 20px;
+    width: 120px;
+    display: block;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 5px 0px 5px 30px;
+}
+
+.contacts {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.contacts__void {
+  height: 20%;
+}
+
+.contacts__big-title {
+  margin-bottom: 20px;
+  font-size: 30px;
+  display: block;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 0px 0px 0px 30px;
+}
+
+.contacts__list {
+  margin: 0px 0px 0px 0px;
+  list-style: none;
+}
+
+.menu__link_contacts {
+  margin-bottom: 10px;
+  height: 20px;
+  width: 120px;
+  display: block;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 5px 0px 5px 30px;
+}

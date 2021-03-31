@@ -1,0 +1,44 @@
+@import "./fonts/fonts.css";
+@import "./colors/colors.css";
+
+*,*:before,*:after{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+
+}
+
+.contacts{
+    margin-top: 50px;
+    display: flex;
+    flex-direction:column;
+    height: 100vh;
+}
+
+.contacts__void{
+    height: 30%;
+}
+
+.contacts__big-title {
+    font-size: 30px;
+    margin-bottom: 40px;
+    height: 20px;
+    width: 120px;
+    display: block;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align:left;
+    padding: 0px 0px 0px 30px;
+}
+
+.contacts__small-title {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: block;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align:left;
+    padding: 0px 15px 0px 30px;
+
+}

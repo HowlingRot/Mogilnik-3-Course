@@ -1,0 +1,18 @@
+
+
+.header:before, .information__item, .footer, .profile__image,.menu__link_profile{
+        background: #5e5373;
+}
+
+.ads__image,.information__image,.menu__link,.contacts,.contacts__big-title,.contacts__small-title,.notice,.profile-ads,.profile{
+        background: #ece89d;
+}
+
+.menu__link_profile{
+        color:#ece89d;
+}
+
+
+.information__text,.ads__text{
+    color:#fff;
+}

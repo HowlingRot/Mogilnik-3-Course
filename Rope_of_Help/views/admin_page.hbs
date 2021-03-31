@@ -1,0 +1,37 @@
+<div class = "page">
+
+ <h1>Функционал админа</h1>
+
+<form action="/getOneUsers" method="POST">
+  <h4>Просмотр пользователя</h4>
+  <input placeholder="Логин" type="text" name="login">
+  <button type="submit" class="btn">Найти</button>
+</form>
+
+<form action="/getAllUsers" method="POST">
+  <h4>Просмотр всех пользователей</h4>
+  <button type="submit" class="btn">Найти</button>
+</form>
+
+<form action="/changeOfAccessLevel" method="POST">
+  <h4>Изменние уровня доступа</h4>
+  <input placeholder="Логин" type="text" name="login">
+    <select class="browser-default" name="role_id">
+    <option value="" disabled selected>Уровень доступа</option>
+    <option value="3">Админ</option>
+    <option value="2">Менеджер</option>
+    <option value="1">Пользователь</option>
+  </select>
+  <button type="submit" class="btn">Изменить</button>
+</form>
+
+
+<form action="/deleteAlienAccount" method="POST">
+  <h4>Удаление пользователей</h4>
+  <input placeholder="Логин" type="text" name="login">
+  <button type="submit" class="btn">Удалить</button>
+</form>
+
+</div>
+
+

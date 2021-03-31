@@ -1,0 +1,25 @@
+<div class = "header">
+			<div class = "container">
+				<div class = "header__body">
+					<a class = "header__logo" href="https://hemansings.com/"><img src="img/index_sascke.jpg"></a>
+					<div class="header__burger">
+						<span></span>
+					</div>
+					<div class = "header__menu">
+							<ul class = "menu__list">
+								<li><a href="/" class="menu__link">Домой</a></li>
+								<li><a href="/notice" class="menu__link">Объявления</a></li>
+								<li><a href = "/profile" class = "menu__link">Профиль</a></li>
+								{{#if viewManager}}
+									<li><a href = "/manager_page" class = "menu__link">Менеджер</a></li>
+  								{{/if}}	
+								{{#if viewAdmin}}
+									<li><a href = "/admin_page" class = "menu__link">Админ</a></li>	
+  								{{/if}}	
+   														
+							</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
