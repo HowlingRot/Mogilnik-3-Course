@@ -22,15 +22,45 @@ FROM avgSalaryBranch
 ORDER BY avgSalaryBranch.avg_Salary ASC
 
 
---2.Содержащее данные о количестве квартир, проданных каждым сотрудником.
---Представление должно включать номер сотрудника, фамилию сотрудника и количество проданных им квартир.  
---С помощью представления создать запрос, возвращающий фамилии сотрудников, продавших не менее 2-х квартир.
 
-CREATE VIEW countStaffSellsProperty AS
-SELECT STAFF.Staff_no, STAFF.LName, count(CONTRACT.Property_no) as numSellsProperty
-FROM STAFF JOIN PROPERTY ON STAFF.Staff_no = PROPERTY.Staff_no JOIN CONTRACT ON CONTRACT.Property_no = PROPERTY.Property_no
+--2.Содержащее   данные о количестве квартир, за который отвечает каждый сотрудник. 
+--Представление должно включать номер сотрудника и количество квартир, за которые он отвечает. 
+--С помощью представления создать запрос, возвращающий фамилии сотрудников, отвечающих за 3 квартиры.
+
+CREATE VIEW countStaffProperty AS
+SELECT STAFF.Staff_no, STAFF.LName, count(PROPERTY.Property_no) as numProperty
+FROM STAFF JOIN PROPERTY ON STAFF.Staff_no = PROPERTY.Staff_no 
 GROUP BY STAFF.Staff_no, STAFF.LName
 
-SELECT countStaffSellsProperty.LName
-FROM countStaffSellsProperty
-WHERE  countStaffSellsProperty.numSellsProperty >= 2
+SELECT countStaffProperty.LName
+FROM countStaffProperty
+WHERE  countStaffProperty.numProperty = 3
+
+--3.Содержащее сведения об общей площади и площади кухни каждой квартиры в таблице PROPERTY.
+--(Представление должно содержать поля Property_no, Общая площадь, Площадь кухни).
+--С помощью представления вывести адреса  квартир, у которых площадь кухни не менее 12 метров.
+
+CREATE VIEW areaInfo AS
+SELECT PROPERTY.Property_no, SUBSTRING(PROPERTY.The_area,(LEN(PROPERTY.The_area) - CHARINDEX('/',REVERSE(PROPERTY.The_area)))+2,CHARINDEX('/',REVERSE(PROPERTY.The_area))) as "Kitchen",  SUBSTRING(PROPERTY.The_area, 0, CHARINDEX('/',PROPERTY.The_area)) as "AllArea"
+FROM PROPERTY
+
+
+SELECT City, Street, House, Flat
+FROM PROPERTY
+WHERE PROPERTY.Property_no = (
+SELECT areaInfo.Property_no
+FROM areaInfo
+WHERE areaInfo.Kitchen >= 12)
+
+--4.Содержащее данные о квартирах, которые были осмотрены более 2 раз и у которых в поле comment таблицы Viewing записано «требует ремонта».  
+--С помощью представления создать запрос, возвращающий фамилии и номера телефонов владельцев этих квартир.
+
+CREATE VIEW propertyView AS
+SELECT OWNER.FName, OWNER.Otel_no
+FROM PROPERTY JOIN OWNER ON PROPERTY.owner_no = OWNER.owner_no JOIN VIEWING ON PROPERTY.Property_no = VIEWING.Property_no
+WHERE VIEWING.Comments = 'требует ремонта'
+GROUP BY PROPERTY.property_no,OWNER.FName, OWNER.Otel_no
+HAVING count(PROPERTY.property_no) >= 2
+
+SELECT propertyView.FName,propertyView.Otel_no
+FROM propertyView
