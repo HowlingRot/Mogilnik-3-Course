@@ -85,7 +85,8 @@ END
 
 EXEC choiceProperty 3, 2, '31/18/10'
 
---5.Для повышения заработной платы сотрудника на заданный, как параметр, процент при условии, что его заработная плата является минимальной в своем отделении(в процедуру передаётся номер сотрудника, процент повышения заработной платы).
+--5.Для повышения заработной платы сотрудника на заданный, как параметр, процент при условии, что его заработная плата является минимальной в своем отделении
+--(в процедуру передаётся номер сотрудника, процент повышения заработной платы).
 --Вывести сообщение о результате выполнения операции. 
 --Вызвать процедуру для сотрудника с заданным Staff_no.
 
@@ -113,7 +114,7 @@ SELECT STAFF.Staff_no
 FROM  STAFF JOIN PROPERTY ON STAFF.Staff_no = PROPERTY.Staff_no = JOIN CONTRACT ON PROPERTY.Property_no = CONTRACT.Property_no
 WHERE CONTRACT.Date_Contract < @start or CONTRACT.Date_Contract > @end 
 GROUP BY STAFF.Staff_no, CONTRACT.Sale_no
-HAVING count( CONTRACT.Sale_no) = 0
+HAVING count(CONTRACT.Sale_no) = 0
 END
 
 --
@@ -145,6 +146,8 @@ CREATE PROCEDURE deleteOwner (@Owner_no member_no) AS
 BEGIN
 DELETE OWNER 
 WHERE Owner_no = @Owner_no
+IF @Owner_no IS NULL
+	PRINT "Deleted"
 END
 
 EXEC deleteOwner 1
