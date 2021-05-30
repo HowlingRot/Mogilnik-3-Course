@@ -12,7 +12,7 @@ Size=3Mb,
 Maxsize=15Mb,
 FileGrowth=1Mb)
 Log On
-(NAME=lTaxiStation,
+(NAME=lBank,
 FILENAME = 'D:\Work\DB\Bank.ldf',
 Size=3Mb,
 Maxsize=15Mb,
